@@ -1,23 +1,33 @@
-function autofill(nilai = 7, pesan = "mantap") {
-	let category = nilai / 3;
+function autofill(
+  nilai = 7,
+  pesan = "mantap",
+  isRandomize = false,
+  min = 1,
+  max = 9
+) {
+  for (let i = 1; i <= 20; i++) {
+    if (isRandomize) {
+      nilai = getRandomizeInt(min, max);
+    }
 
-	if (category <= 1) {
-		category = 1;
-	} else if (category <= 2) {
-		category = 2;
-	} else {
-		category = 3;
-	}
-	let subCategory = nilai - category * 3 + 3;
+    let category = Math.ceil(nilai / 3);
 
-	for (let i = 1; i <= 20; i++) {
-		let numberStr = `${i}`;
-		if (i < 10) {
-			numberStr = `0${i}`;
-		}
-		document.getElementById(`K${numberStr}${category}${subCategory}`).click();
-	}
-	document.querySelector("textarea").value = pesan;
+    let subCategory = nilai - category * 3 + 3;
+
+    let numberStr = `${i}`;
+
+    if (i < 10) {
+      numberStr = `0${i}`;
+    }
+
+    document.getElementById(`K${numberStr}${category}${subCategory}`).click();
+  }
+
+  document.querySelector("textarea").value = pesan;
 }
 
-autofill();
+function getRandomizeInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+autofill(9, "mantap");
